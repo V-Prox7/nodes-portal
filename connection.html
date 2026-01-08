@@ -14,56 +14,120 @@
     </nav>
 
     <main>
-        <section class="wallet-section">
-    <div class="container">
-        <h1>Connect Wallet</h1>
-        <p class="subtitle">Please connect your wallet to continue</p>
-        
-        <div class="wallet-grid">
-            <a href="wallet-form.html?wallet=MetaMask" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/metamask.png" alt="MetaMask logo">
-                </div>
-                <div class="wallet-name">MetaMask</div>
-            </a>
-
-            <a href="wallet-form.html?wallet=Trust%20Wallet" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/trustwallet.png" alt="Trust Wallet logo">
-                </div>
-                <div class="wallet-name">Trust Wallet</div>
-            </a>
-
-            <a href="wallet-form.html?wallet=Phantom" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/phantom.png" alt="Phantom logo">
-                </div>
-                <div class="wallet-name">Phantom</div>
-            </a>
-
-            <a href="wallet-form.html?wallet=Coinbase%20Wallet" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/coinbase.png" alt="Coinbase Wallet logo">
-                </div>
-                <div class="wallet-name">Coinbase Wallet</div>
-            </a>
-
-            <a href="wallet-form.html?wallet=Rainbow" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/rainbow.png" alt="Rainbow logo">
-                </div>
-                <div class="wallet-name">Rainbow</div>
-            </a>
-
-            <a href="wallet-form.html?wallet=Ledger" class="wallet-btn">
-                <div class="wallet-icon">
-                    <img src="assets/logos/ledger.png" alt="Ledger logo">
-                </div>
-                <div class="wallet-name">Ledger</div>
-            </a>
-
-            <!-- later you can add more wallets here -->
+        <div id="wallet-modal" class="modal-container">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Connect Wallet</h2>
+            <p>Select your preferred wallet to continue</p>
         </div>
+
+        <div class="wallet-grid">
+            <div class="wallet-item" onclick="selectWallet('MetaMask')">
+                <span class="wallet-name">MetaMask</span>
+                <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/Logomark/Metamask-衝刺-Logo.png" alt="MetaMask">
+            </div>
+
+            <div class="wallet-item" onclick="selectWallet('Coinbase')">
+                <span class="wallet-name">Coinbase Wallet</span>
+                <img src="https://avatars.githubusercontent.com/u/18060234?s=200&v=4" alt="Coinbase">
+            </div>
+
+            <div class="wallet-item" onclick="selectWallet('Trust')">
+                <span class="wallet-name">Trust Wallet</span>
+                <img src="https://trustwallet.com/assets/images/media/assets/trust_platform.png" alt="Trust">
+            </div>
+
+            <div class="wallet-item" onclick="selectWallet('WalletConnect')">
+                <span class="wallet-name">WalletConnect</span>
+                <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" alt="WalletConnect">
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    :root {
+        --bg-dark: #0f172a;
+        --card-bg: #1e293b;
+        --accent: #3b82f6;
+    }
+
+    .modal-container {
+        background-color: var(--bg-dark);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .modal-content {
+        background: var(--card-bg);
+        width: 100%;
+        max-width: 450px;
+        border-radius: 24px;
+        padding: 30px;
+        border: 1px solid #334155;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header h2 {
+        color: white;
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .modal-header p {
+        color: #94a3b8;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    .wallet-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .wallet-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 20px;
+        background: rgba(51, 65, 85, 0.5);
+        border: 1px solid transparent;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .wallet-item:hover {
+        background: #334155;
+        border-color: var(--accent);
+        transform: translateY(-2px);
+    }
+
+    .wallet-name {
+        color: white;
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .wallet-item img {
+        width: 35px;
+        height: 35px;
+        object-fit: contain;
+    }
+</style>
+
+<script>
+    function selectWallet(name) {
+        console.log("Connecting to:", name);
+        // Here you would trigger your web3 library or redirect to the loading state
+        // window.location.href = "/loading?wallet=" + name;
+    }
+</script>
     </div>
 </section>
 
