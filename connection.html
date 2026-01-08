@@ -3,148 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connect Wallet - Nodes Portal</title>
-    <link rel="stylesheet" href="styles/style.css">
+    <title>Connect Wallet | Portal</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            background-color: #0d1117;
+            color: white;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .portal-card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .header h1 { font-size: 1.5rem; margin-bottom: 8px; }
+        .header p { color: #8b949e; font-size: 0.9rem; }
+
+        .wallet-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        /* Custom Scrollbar */
+        .wallet-grid::-webkit-scrollbar { width: 5px; }
+        .wallet-grid::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+
+        .wallet-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            background: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .wallet-row:hover {
+            background: #2d333b;
+            border-color: #58a6ff;
+            transform: scale(1.01);
+        }
+
+        .wallet-info { display: flex; align-items: center; gap: 15px; }
+        .wallet-info span { font-weight: 600; font-size: 1rem; }
+        
+        .wallet-row img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .arrow { color: #8b949e; font-size: 1.2rem; }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">NODES PORTAL</a>
+
+<div class="portal-card">
+    <div class="header">
+        <h1>Connect Wallet</h1>
+        <p>Select your wallet to continue the process</p>
+    </div>
+
+    <div class="wallet-grid">
+        <div class="wallet-row" onclick="alert('Connecting MetaMask...')">
+            <div class="wallet-info">
+                <span>MetaMask</span>
+            </div>
+            <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/Logomark/Metamask-衝刺-Logo.png" alt="MetaMask">
         </div>
-    </nav>
 
-    <main>
-        <div id="wallet-modal" class="modal-container">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Connect Wallet</h2>
-            <p>Select your preferred wallet to continue</p>
+        <div class="wallet-row" onclick="alert('Connecting Trust Wallet...')">
+            <div class="wallet-info">
+                <span>Trust Wallet</span>
+            </div>
+            <img src="https://trustwallet.com/assets/images/media/assets/trust_platform.png" alt="Trust">
         </div>
 
-        <div class="wallet-grid">
-            <div class="wallet-item" onclick="selectWallet('MetaMask')">
-                <span class="wallet-name">MetaMask</span>
-                <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/Logomark/Metamask-衝刺-Logo.png" alt="MetaMask">
+        <div class="wallet-row" onclick="alert('Connecting Coinbase...')">
+            <div class="wallet-info">
+                <span>Coinbase Wallet</span>
             </div>
-
-            <div class="wallet-item" onclick="selectWallet('Coinbase')">
-                <span class="wallet-name">Coinbase Wallet</span>
-                <img src="https://avatars.githubusercontent.com/u/18060234?s=200&v=4" alt="Coinbase">
-            </div>
-
-            <div class="wallet-item" onclick="selectWallet('Trust')">
-                <span class="wallet-name">Trust Wallet</span>
-                <img src="https://trustwallet.com/assets/images/media/assets/trust_platform.png" alt="Trust">
-            </div>
-
-            <div class="wallet-item" onclick="selectWallet('WalletConnect')">
-                <span class="wallet-name">WalletConnect</span>
-                <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" alt="WalletConnect">
-            </div>
+            <img src="https://avatars.githubusercontent.com/u/18060234?s=200&v=4" alt="Coinbase">
         </div>
+
+        <div class="wallet-row" onclick="alert('Connecting WalletConnect...')">
+            <div class="wallet-info">
+                <span>WalletConnect</span>
+            </div>
+            <img src="https://raw.githubusercontent.com/WalletConnect/walletconnect-assets/master/Logo/Blue%20(Default)/Logo.png" alt="WalletConnect">
+        </div>
+
+        <div class="wallet-row" onclick="alert('Connecting Ledger...')">
+            <div class="wallet-info">
+                <span>Ledger</span>
+            </div>
+            <img src="https://www.ledger.com/wp-content/uploads/2021/11/Ledger_favicon.png" alt="Ledger">
+        </div>
+
+        <div class="wallet-row" onclick="alert('Connecting Phantom...')">
+            <div class="wallet-info">
+                <span>Phantom</span>
+            </div>
+            <img src="https://phantom.app/favicon.ico" alt="Phantom">
+        </div>
+
+        <div class="wallet-row" onclick="alert('Connecting Exodus...')">
+            <div class="wallet-info">
+                <span>Exodus</span>
+            </div>
+            <img src="https://www.exodus.com/apple-touch-icon.png" alt="Exodus">
+        </div>
+
+        <div class="wallet-row" onclick="alert('Connecting SafePal...')">
+            <div class="wallet-info">
+                <span>SafePal</span>
+            </div>
+            <img src="https://safepal.com/favicon.ico" alt="SafePal">
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <p style="color: #8b949e; font-size: 0.8rem;">By connecting, you agree to the Terms of Service.</p>
     </div>
 </div>
 
-<style>
-    :root {
-        --bg-dark: #0f172a;
-        --card-bg: #1e293b;
-        --accent: #3b82f6;
-    }
-
-    .modal-container {
-        background-color: var(--bg-dark);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .modal-content {
-        background: var(--card-bg);
-        width: 100%;
-        max-width: 450px;
-        border-radius: 24px;
-        padding: 30px;
-        border: 1px solid #334155;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    }
-
-    .modal-header h2 {
-        color: white;
-        text-align: center;
-        margin-bottom: 8px;
-    }
-
-    .modal-header p {
-        color: #94a3b8;
-        text-align: center;
-        font-size: 14px;
-        margin-bottom: 30px;
-    }
-
-    .wallet-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .wallet-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 20px;
-        background: rgba(51, 65, 85, 0.5);
-        border: 1px solid transparent;
-        border-radius: 16px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-
-    .wallet-item:hover {
-        background: #334155;
-        border-color: var(--accent);
-        transform: translateY(-2px);
-    }
-
-    .wallet-name {
-        color: white;
-        font-weight: 600;
-        font-size: 18px;
-    }
-
-    .wallet-item img {
-        width: 35px;
-        height: 35px;
-        object-fit: contain;
-    }
-</style>
-
-<script>
-    function selectWallet(name) {
-        console.log("Connecting to:", name);
-        // Here you would trigger your web3 library or redirect to the loading state
-        // window.location.href = "/loading?wallet=" + name;
-    }
-</script>
-    </div>
-</section>
-
-    <
-    </a>
-</div>
-
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; NODES PORTAL. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script src="js/wallets.js"></script>
 </body>
 </html>
